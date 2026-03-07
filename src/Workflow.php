@@ -6,7 +6,6 @@ class Workflow
 {
   protected array $records = [];
 
-
   public function add($callable): Workflow
   {
     $this->records[] = [

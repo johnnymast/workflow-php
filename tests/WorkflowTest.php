@@ -1,7 +1,5 @@
 <?php
 
-include __DIR__ . "/../vendor/autoload.php";
-
 use Johnny\Workflow\Workflow;
 
 $workflow = new Workflow();
