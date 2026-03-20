@@ -23,7 +23,7 @@ If you’ve ever wished your application logic read more like a narrative and le
 One of the biggest advantages of this library only becomes visible when you use it in a real production codebase.  
 Large features that once required hundreds or even thousands of lines of orchestration logic can now be expressed as a simple, readable pipeline:
 
-@@@php
+```php
 $workflow = (new Workflow())
     ->add(new ValidateOrder())
     ->add(new CreateOrder())
@@ -36,7 +36,7 @@ $result = $workflow->run([
     'customer' => 'john@example.com',
     'items' => ['sku-123', 'sku-456'],
 ]);
-@@@
+```
 
 That’s the entire flow — end to end.  
 No scattered service calls, no deeply nested conditionals, no hidden state.  
@@ -53,21 +53,21 @@ The workflow becomes the place where everything comes together, and the steps be
 ### Turning features on and off becomes trivial  
 Need to disable a step temporarily?
 
-@@@php
+```php
 // ->add(new CheckFraud())
-@@@
+```
 
 Need to replace a step with a new implementation?
 
-@@@php
+```php
 ->add(new NewFraudCheck())
-@@@
+```
 
 Need to insert a step in the middle of the pipeline?
 
-@@@php
+```php
 ->addBefore(StoreOrder::class, new ApplyDiscounts())
-@@@
+```
 
 You don’t have to refactor existing logic.  
 You don’t have to hunt through controllers or services.  
