@@ -9,6 +9,14 @@ Todo ..
 You might want to add a simple thing where you can debug the reason of failure.
 
 
+# Did i overengineer this class?
+
+Well, at first look you might say yes. In the first local versions i just used to have the Workflow calss and the sucess and failed methods.
+The downside of this was that i had failed but i had no concept of what have might wrong in the workflow to fail and call failed. If you are a backend
+engineer (like my self) you know how anoying errors without context can be. So i added the WorkflowResult and WorkflowContext so the there would
+alway be a concept of the source (the context) and the status of the Workflow with the WorkflowResult that will also be passed to the failed callback.
+This is how the project became a litle more technical but also more usefull in the end.
+
 
 ## Todo examples
 
@@ -27,16 +35,3 @@ Quisque ac purus ac quam faucibus bibendum. Nunc a rhoncus lorem. Nulla imperdie
 libero condimentum sed. Aenean eget diam iaculis, viverra nisi vel, suscipit massa. Sed ac arcu urna.
 
 [Basic Examle](basic.php)
-
-
-
-## MIT License
-
-Copyright (c) 2026 Johnny Mast <mastjohnny@gmail.com>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
