@@ -4,76 +4,69 @@ namespace Johnny\Workflow;
 
 class Workflow
 {
-    protected array $records = [];
+    protected array $steps = [];
+    protected $onSuccess = null;
+    protected $onFailed = null;
 
-    /** @var callable|null */
-    protected mixed $onFailure = null;
-
-    /** @var callable|null */
-    protected mixed $onSuccess = null;
-
-    public function add(mixed $callable): self
+    public function add(callable $step): self
     {
-        $this->records[] = [
-            'func' => $callable
-        ];
-
+        $this->steps[] = $step;
         return $this;
     }
 
-    public function success(callable $callable): self
+    public function success(callable $callback): self
     {
-        $this->onSuccess = $callable;
+        $this->onSuccess = $callback;
         return $this;
     }
 
-    public function failed(callable $callable): self
+    public function failed(callable $callback): self
     {
-        $this->onFailure = $callable;
+        $this->onFailed = $callback;
         return $this;
     }
 
-
-    public function run(mixed $initialContext): WorkflowResult
+    public function run(mixed $initialValue): WorkflowResult
     {
-        // Start met een neutrale context
-        $context = new WorkflowContext($initialContext);
+        $context = new WorkflowContext($initialValue);
 
-        foreach ($this->records as $index => $record) {
+        foreach ($this->steps as $index => $step) {
 
-            // Voer de stap uit met de huidige context
-            $newContext = ($record['func'])($context->context);
+            $newContext = $step($context);
 
-            // Falsy betekent failure
-            if (!$newContext) {
-
-                // Maak een failure-result
+            if (!$newContext instanceof WorkflowContext) {
                 $result = WorkflowResultFactory::failure(
-                    context: $context,
-                    error: "Step {$index} returned falsy",
-                    step: $index,
-                    userData: [
-                        'timestamp' => time(),
-                        'step'      => $index,
-                    ]
+                    $context,
+                    "Step {$index} did not return a WorkflowContext",
+                    $index
                 );
 
-                // Trigger failed-callback
-                if ($this->onFailure) {
-                    ($this->onFailure)($result);
+                if ($this->onFailed) {
+                    ($this->onFailed)($result);
                 }
 
                 return $result;
             }
 
-            // Update context voor de volgende stap
-            $context = $context->withContext($newContext);
+            if ($newContext->hasError()) {
+                $result = WorkflowResultFactory::failure(
+                    $newContext,
+                    $newContext->error,
+                    $index
+                );
+
+                if ($this->onFailed) {
+                    ($this->onFailed)($result);
+                }
+
+                return $result;
+            }
+
+            $context = $newContext;
         }
 
-        // Succesvol einde
         $result = WorkflowResultFactory::success($context);
 
-        // Trigger success-callback
         if ($this->onSuccess) {
             ($this->onSuccess)($result);
         }

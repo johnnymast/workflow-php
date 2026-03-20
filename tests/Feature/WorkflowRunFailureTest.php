@@ -1,30 +1,40 @@
 <?php
 
 use Johnny\Workflow\Workflow;
+use Johnny\Workflow\WorkflowContext;
+use Johnny\Workflow\WorkflowResult;
 
-it('stops execution when a step returns falsy and returns a failure WorkflowResult', function () {
-    $workflow = (new Workflow())
-        ->add(fn ($c) => null)
-        ->add(fn () => 'should_not_run');
-
-    $result = $workflow->run(10);
-
-    expect($result->didFail())->toBeTrue()
-        ->and($result->context->failedStep)->toBe(0)
-        ->and($result->context->error)->toBe('Step 0 returned falsy');
-});
-
-it('calls the failed callback with the WorkflowResult', function () {
-    $failed = false;
+it('fails the workflow when a step returns an error', function () {
 
     $workflow = (new Workflow())
-        ->add(fn () => null)
-        ->failed(function ($result) use (&$failed) {
-            $failed = $result->didFail();
+        ->add(function (WorkflowContext $context) {
+            // eerste mutatie
+            $context->value = 10;
+            return $context;
+        })
+        ->add(function (WorkflowContext $context) {
+            // hier gaat het mis
+            return $context->withError("Something went wrong");
+        })
+        ->add(function (WorkflowContext $context) {
+            // mag nooit uitgevoerd worden
+            $context->value = 999;
+            return $context;
         });
 
     $result = $workflow->run(5);
 
-    expect($failed)->toBeTrue()
-        ->and($result->didFail())->toBeTrue();
+    expect($result)->toBeInstanceOf(WorkflowResult::class);
+
+    // workflow moet falen
+    expect($result->didFail())->toBeTrue();
+
+    // error moet correct zijn
+    expect($result->context->error)->toBe("Something went wrong");
+
+    // waarde moet zijn wat het was vóór de error
+    expect($result->context->value)->toBe(10);
+
+    // failedStep moet index 1 zijn (0-based)
+    expect($result->context->failedStep)->toBe(1);
 });

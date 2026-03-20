@@ -2,19 +2,23 @@
 
 include __DIR__ . "/../vendor/autoload.php";
 
-$workflow = new Johnny\Workflow\Workflow();
-/**/
-/* $workflow->add(fn($context) => str_replace("World", "Johnny", $context)); */
-/* $result = $workflow->run("Hello World"); */
-/**/
-/* echo $result; */
+use Johnny\Workflow\Workflow;
+use Johnny\Workflow\WorkflowContext;
 
-$toBe7 = fn ($value) => ($value === 5);
-$called = false;
+$workflow = (new Workflow())
+    ->add(function (WorkflowContext $context) {
+        $context->value++;
+        return $context;
+    })
+    ->add(function (WorkflowContext $context) {
+        $context->value *= 2;
+        return $context;
+    })
+    ->add(function (WorkflowContext $context) {
+        $context->value -= 3;
+        return $context;
+    });
 
-$result = $workflow
-    ->add($toBe7)
-    ->failed(fn () => $called = true)
-    ->run(5);
+$result = $workflow->run(5);
 
 var_dump($result);

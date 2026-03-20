@@ -1,33 +1,35 @@
+
 <?php
 
 use Johnny\Workflow\Workflow;
+use Johnny\Workflow\WorkflowContext;
 
-it('does not call success when workflow fails', function () {
-    $success = false;
+it('executes the success callback', function () {
+
+    $called = false;
 
     $workflow = (new Workflow())
-        ->add(fn () => null)
-        ->success(function () use (&$success) {
-            $success = true;
+        ->add(fn (WorkflowContext $c) => $c)
+        ->success(function () use (&$called) {
+            $called = true;
         });
 
-    $result = $workflow->run(1);
+    $workflow->run("ok");
 
-    expect($result->didFail())->toBeTrue()
-        ->and($success)->toBeFalse();
+    expect($called)->toBeTrue();
 });
 
-it('does not call failed when workflow succeeds', function () {
-    $failed = false;
+it('executes the failed callback', function () {
+
+    $called = false;
 
     $workflow = (new Workflow())
-        ->add(fn ($c) => $c + 1)
-        ->failed(function () use (&$failed) {
-            $failed = true;
+        ->add(fn (WorkflowContext $c) => $c->withError("Nope"))
+        ->failed(function () use (&$called) {
+            $called = true;
         });
 
-    $result = $workflow->run(1);
+    $workflow->run("start");
 
-    expect($result->didSucceed())->toBeTrue()
-        ->and($failed)->toBeFalse();
+    expect($called)->toBeTrue();
 });

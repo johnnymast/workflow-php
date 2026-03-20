@@ -1,29 +1,29 @@
-
 <?php
 
 use Johnny\Workflow\Workflow;
+use Johnny\Workflow\WorkflowContext;
+use Johnny\Workflow\WorkflowResult;
 
-it('runs all steps and returns a successful WorkflowResult', function () {
-    $workflow = (new Workflow())
-        ->add(fn ($c) => $c + 1)
-        ->add(fn ($c) => $c * 3);
-
-    $result = $workflow->run(2);
-
-    expect($result->didSucceed())->toBeTrue()
-        ->and($result->context->context)->toBe(9);
-});
-
-it('calls the success callback with the WorkflowResult', function () {
-    $called = false;
+it('runs a workflow successfully and returns the final value', function () {
 
     $workflow = (new Workflow())
-        ->add(fn ($c) => $c + 1)
-        ->success(function ($result) use (&$called) {
-            $called = $result->context->context === 3;
+        ->add(function (WorkflowContext $context) {
+            $context->value++;
+            return $context;
+        })
+        ->add(function (WorkflowContext $context) {
+            $context->value *= 2;
+            return $context;
+        })
+        ->add(function (WorkflowContext $context) {
+            $context->value += 3;
+            return $context;
         });
 
-    $workflow->run(2);
+    $result = $workflow->run(5);
 
-    expect($called)->toBeTrue();
+    expect($result)->toBeInstanceOf(WorkflowResult::class);
+    expect($result->didSucceed())->toBeTrue();
+    expect($result->context->value)->toBe(((5 + 1) * 2) + 3);
+    expect($result->context->error)->toBeNull();
 });

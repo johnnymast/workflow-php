@@ -5,40 +5,37 @@ namespace Johnny\Workflow;
 class WorkflowContext
 {
     public function __construct(
-        public mixed $context,
+        public mixed $value,
         public ?string $error = null,
-        public array $userData = [],
         public ?int $failedStep = null,
+        public array $userData = []
     ) {
     }
 
-    public function withContext(mixed $context): self
+    public function withValue(mixed $newValue): self
     {
-        return new self(
-            context: $context,
-            error: $this->error,
-            userData: $this->userData,
-            failedStep: $this->failedStep
-        );
+        $clone = clone $this;
+        $clone->value = $newValue;
+        return $clone;
     }
 
-    public function withError(string $error, ?int $step = null): self
+    public function withError(string $message, ?int $step = null): self
     {
-        return new self(
-            context: $this->context,
-            error: $error,
-            userData: $this->userData,
-            failedStep: $step
-        );
+        $clone = clone $this;
+        $clone->error = $message;
+        $clone->failedStep = $step;
+        return $clone;
     }
 
     public function withUserData(array $data): self
     {
-        return new self(
-            context: $this->context,
-            error: $this->error,
-            userData: array_merge($this->userData, $data),
-            failedStep: $this->failedStep
-        );
+        $clone = clone $this;
+        $clone->userData = array_merge($clone->userData, $data);
+        return $clone;
+    }
+
+    public function hasError(): bool
+    {
+        return $this->error !== null;
     }
 }

@@ -10,13 +10,13 @@ class WorkflowResult
     ) {
     }
 
-    public function didFail(): bool
-    {
-        return !$this->success;
-    }
-
     public function didSucceed(): bool
     {
-        return $this->success;
+        return $this->success === true;
+    }
+
+    public function didFail(): bool
+    {
+        return $this->success === false;
     }
 }

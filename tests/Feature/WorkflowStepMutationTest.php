@@ -1,27 +1,77 @@
 <?php
 
 use Johnny\Workflow\Workflow;
+use Johnny\Workflow\WorkflowContext;
+use Johnny\Workflow\WorkflowResult;
 
-it('passes context between steps using WorkflowContext', function () {
-    $workflow = new Workflow();
+it('allows steps to mutate the context value directly', function () {
 
-    $workflow->add(fn ($c) => $c + 1);
-    $workflow->add(fn ($c) => $c * 2);
+    $workflow = (new Workflow())
+        ->add(function (WorkflowContext $context) {
+            $context->value = 10;
+            return $context;
+        })
+        ->add(function (WorkflowContext $context) {
+            $context->value *= 2;
+            return $context;
+        })
+        ->add(function (WorkflowContext $context) {
+            $context->value += 5;
+            return $context;
+        });
 
     $result = $workflow->run(1);
 
-    expect($result->didSucceed())->toBeTrue()
-        ->and($result->context->context)->toBe(4);
+    expect($result)->toBeInstanceOf(WorkflowResult::class);
+    expect($result->didSucceed())->toBeTrue();
+    expect($result->context->value)->toBe(25);
 });
 
-it('allows steps to mutate arrays inside WorkflowContext', function () {
-    $workflow = new Workflow();
+it('supports mixing mutation and withValue()', function () {
 
-    $workflow->add(fn ($c) => array_merge($c, ['x' => 1]));
-    $workflow->add(fn ($c) => array_merge($c, ['y' => 2]));
+    $workflow = (new Workflow())
+        ->add(function (WorkflowContext $context) {
+            $context->value = 3;
+            return $context;
+        })
+        ->add(function (WorkflowContext $context) {
+            return $context->withValue($context->value * 3);
+        })
+        ->add(function (WorkflowContext $context) {
+            $context->value += 1;
+            return $context;
+        });
 
-    $result = $workflow->run([]);
+    $result = $workflow->run(0);
 
-    expect($result->didSucceed())->toBeTrue()
-        ->and($result->context->context)->toMatchArray(['x' => 1, 'y' => 2]);
+    expect($result->didSucceed())->toBeTrue();
+    expect($result->context->value)->toBe(10);
+});
+
+it('stops mutation when an error is returned', function () {
+
+    $executed = 0;
+
+    $workflow = (new Workflow())
+        ->add(function (WorkflowContext $context) use (&$executed) {
+            $executed++;
+            $context->value = 5;
+            return $context;
+        })
+        ->add(function (WorkflowContext $context) use (&$executed) {
+            $executed++;
+            return $context->withError("Mutation failed");
+        })
+        ->add(function (WorkflowContext $context) use (&$executed) {
+            $executed++;
+            $context->value = 999; // mag nooit uitgevoerd worden
+            return $context;
+        });
+
+    $result = $workflow->run(0);
+
+    expect($result->didFail())->toBeTrue();
+    expect($result->context->error)->toBe("Mutation failed");
+    expect($executed)->toBe(2);
+    expect($result->context->value)->toBe(5);
 });

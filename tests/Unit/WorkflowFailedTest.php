@@ -1,24 +1,24 @@
+
 <?php
 
 use Johnny\Workflow\Workflow;
+use Johnny\Workflow\WorkflowContext;
+use Johnny\Workflow\WorkflowResult;
 
-it('accepts a failed arrow function', function () {
-    $workflow = (new Workflow())->failed(fn () => null);
-    expect($workflow)->toBeInstanceOf(Workflow::class);
-});
+it('fails when a step returns an error', function () {
 
-it('accepts a failed closure', function () {
-    $workflow = (new Workflow())->failed(function () {
-    });
-    expect($workflow)->toBeInstanceOf(Workflow::class);
-});
+    $workflow = (new Workflow())
+        ->add(function (WorkflowContext $context) {
+            $context->value++;
+            return $context;
+        })
+        ->add(function (WorkflowContext $context) {
+            return $context->withError("Boom!");
+        });
 
-it('accepts an invokable failed handler', function () {
-    $workflow = (new Workflow())->failed(new class () {
-        public function __invoke()
-        {
-        }
-    });
+    $result = $workflow->run(5);
 
-    expect($workflow)->toBeInstanceOf(Workflow::class);
+    expect($result->didFail())->toBeTrue();
+    expect($result->context->error)->toBe("Boom!");
+    expect($result->context->failedStep)->toBe(1);
 });
