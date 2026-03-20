@@ -18,7 +18,7 @@ If you’ve ever wished your application logic read more like a narrative and le
 
 ---
 
-## Why Workflow Matters in Production
+## Why Workflow Matters To You
 
 One of the biggest advantages of this library only becomes visible when you use it in a real production codebase.  
 Large features that once required hundreds or even thousands of lines of orchestration logic can now be expressed as a simple, readable pipeline:
