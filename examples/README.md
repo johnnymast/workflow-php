@@ -12,7 +12,7 @@ This example demonstrates:
 - Creating a workflow  
 - Adding simple mutation steps  
 - Running the workflow with an initial value  
-- Inspecting the final `**WorkflowResult**`
+- Inspecting the final **WorkflowResult**
 
 [Basic Example](basic.php)
 
@@ -20,25 +20,26 @@ This example demonstrates:
 
 ## Failure and Success
 
-This example shows how to inspect a `**WorkflowResult**` directly without using callbacks.  
+This example shows how to inspect a **WorkflowResult** directly without using callbacks.  
 It demonstrates how the engine behaves when:
 
 - All steps succeed  
-- A step returns an error via `withError()`  
+- A step returns an error via **withError()**  
 - The workflow stops immediately on failure  
 - You check the result using:
-  - `$result->didSucceed()`  
-  - `$result->didFail()`  
-  - `$result->success`  
-  - `$result->context->value`  
-  - `$result->context->error`  
-  - `$result->context->failedStep`
+  - **$result->succeeded()**  
+  - **$result->failed()**  
+  - **$result->success**  
+  - **$result->context->value**  
+  - **$result->context->error**  
+  - **$result->context->failedStep**
 
 This example is the foundation for understanding how the engine handles control flow.
 
 [Failure and Success Example](success_and_failure.php)
 
 ---
+
 
 ## Introducing Callbacks
 
@@ -53,18 +54,19 @@ Callbacks are optional helpers.
 They do **not** replace the **WorkflowResult** object.  
 You always receive a result and can still inspect it manually:
 
-- `$result->didSucceed()`  
-- `$result->didFail()`  
-- `$result->success`  
-- `$result->context->value`  
-- `$result->context->error`  
-- `$result->context->failedStep`
+- **$result->didSucceed()**  
+- **$result->didFail()**  
+- **$result->success**  
+- **$result->context->value**  
+- **$result->context->error**  
+- **$result->context->failedStep**
 
 This makes callbacks ideal for logging, notifications, or cleanup logic, while keeping your workflow steps pure and focused.
 
 [Introducing Callbacks Example](callbacks.php)
 
 ---
+
 
 ## Real World
 
@@ -76,22 +78,15 @@ The workflow simulates a simple order‑processing pipeline:
 3. Store it in a repository  
 4. Send a confirmation email  
 
-All supporting classes live in `examples/Misc/` and contain placeholder methods to keep the example focused on workflow orchestration rather than implementation details.
+All supporting classes live in **examples/Misc/** and contain placeholder methods to keep the example focused on workflow orchestration rather than implementation details.
 
-The following classes are used:
+Even in a real‑world workflow, you still receive a **WorkflowResult** object and can inspect:
 
-- **OrderValidator**  
-- **OrderService**  
-- **OrderRepository**  
-- **EmailService**
-
-Even in a real‑world workflow, you still receive a `**WorkflowResult**` object and can inspect:
-
-- `$result->didSucceed()`  
-- `$result->didFail()`  
-- `$result->context->value`  
-- `$result->context->error`  
-- `$result->context->failedStep`  
+- **$result->didSucceed()**  
+- **$result->didFail()**  
+- **$result->context->value**  
+- **$result->context->error**  
+- **$result->context->failedStep**  
 
 This example shows how workflows can act as clean, predictable pipelines for multi‑step business logic.
 
