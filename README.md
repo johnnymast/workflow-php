@@ -126,7 +126,7 @@ libero condimentum sed. Aenean eget diam iaculis, viverra nisi vel, suscipit mas
 
 [Basic Examle](basic.php)
 
-MIT License
+## MIT License
 
 Copyright (c) 2026 Johnny Mast <mastjohnny@gmail.com>
 
