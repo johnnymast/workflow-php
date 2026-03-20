@@ -1,63 +1,40 @@
-<?php
 
-namespace Examples;
+<?php
 
 require __DIR__ . "/../vendor/autoload.php";
 
 use Johnny\Workflow\Workflow;
-use Johnny\Workflow\WorkflowContext;
 use Johnny\Workflow\WorkflowResult;
-use Examples\Misc\OrderValidator;
-use Examples\Misc\OrderService;
-use Examples\Misc\OrderRepository;
-use Examples\Misc\EmailService;
+use Examples\Invokables\ValidateOrder;
+use Examples\Invokables\CreateOrder;
+use Examples\Invokables\StoreOrder;
+use Examples\Invokables\SendOrderEmail;
 
 /**
  * -----------------------------------------------------------------------------
  *  realworld.php
  * -----------------------------------------------------------------------------
  *
- *  A realistic example showing how a workflow can orchestrate multiple services.
+ *  A realistic example showing how a workflow can orchestrate multiple steps
+ *  using invokable classes. Each step is clean, testable, and self-contained.
  *
- *  This workflow simulates:
+ *  The pipeline:
  *
- *      1. Validating an order
- *      2. Creating the order in storage
- *      3. Sending a confirmation email
+ *      1. Validate the incoming order data
+ *      2. Create the order
+ *      3. Store the order
+ *      4. Send a confirmation email
  *
- *  All service classes live in examples/misc/ and contain placeholder methods.
- *
- *  Even in a real-world scenario, you still receive a WorkflowResult object and
- *  can inspect:
- *
- *      $result->didSucceed()
- *      $result->didFail()
- *      $result->context->value
- *      $result->context->error
- *      $result->context->failedStep
+ *  All step classes live in examples/Invokables/.
  *
  * -----------------------------------------------------------------------------
  */
 
-$validator = new OrderValidator();
-$orderService = new OrderService();
-$repository = new OrderRepository();
-$email = new EmailService();
-
 $workflow = (new Workflow())
-    ->add(function (WorkflowContext $c) use ($validator) {
-        $validator->validate($c->value);
-        return $c;
-    })
-    ->add(function (WorkflowContext $c) use ($orderService, $repository) {
-        $order = $orderService->createOrder($c->value);
-        $repository->store($order);
-        return $c->withValue($order);
-    })
-    ->add(function (WorkflowContext $c) use ($email) {
-        $email->sendOrderConfirmation($c->value);
-        return $c;
-    })
+    ->add(new ValidateOrder())
+    ->add(new CreateOrder())
+    ->add(new StoreOrder())
+    ->add(new SendOrderEmail())
     ->success(function (WorkflowResult $result) {
         echo "Order workflow completed successfully.\n";
     })
