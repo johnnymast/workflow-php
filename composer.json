@@ -1,14 +1,28 @@
 {
-  "name": "johnny/workflow-php",
-  "description": "A better description will be added later",
+  "name": "johnnymast/logichain",
+  "description": "A SOLID-friendly pipeline engine for structuring business logic into clean, composable chains.",
   "type": "library",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "require": {
     "php": ">=8.3"
   },
+  "keywords": [
+    "php",
+    "logic",
+    "logic-chain",
+    "pipeline",
+    "chain",
+    "chain-of-responsibility",
+    "adapter",
+    "business-logic",
+    "clean-code",
+    "architecture"
+  ],
+  "minimum-stability": "stable",
+  "prefer-stable": true,
   "autoload": {
     "psr-4": {
-      "Johnny\\Workflow\\": "src/",
+      "Johnny\\LogicChain\\": "src/",
       "Examples\\": "examples/",
       "Tests\\": "tests/"
     }
@@ -31,6 +45,8 @@
       "pestphp/pest-plugin": true
     }
   },
-  "minimum-stability": "stable",
-  "prefer-stable": true
+  "support": {
+    "issues": "https://github.com/johnnymast/logichain/issues",
+    "source": "https://github.com/johnnymast/logichain"
+  }
 }

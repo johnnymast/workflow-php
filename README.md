@@ -1,7 +1,7 @@
 
 [![Run Pest Tests](https://github.com/johnnymast/workflow-php/actions/workflows/tests.yml/badge.svg)](https://github.com/johnnymast/workflow-php/actions/workflows/tests.yml)
 
-# Workflow (Work in Progress)
+# LogicChain (Work in Progress)
 
 Workflow is built on a simple belief: complex logic shouldn’t feel complex.
 This library gives you a clean, expressive way to structure multi‑step processes without drowning in conditionals, flags, or scattered service calls. Every workflow becomes a clear, linear story — one step at a time — with predictable behavior and a result you can always trust.
@@ -38,13 +38,13 @@ Just a clean sequence of steps that tells the story of what your application is 
 
 ---
 
-# MIT License
 
-Copyright (c) 2026 Johnny Mast <mastjohnny@gmail.com>
+## Apache 2.0 License
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+LogicChain is licensed under the Apache License, Version 2.0 (Apache-2.0).
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+© 2026 Johnny Mast — mastjohnny@gmail.com  
+You may use this project in commercial and private applications under the terms of the Apache 2.0 license.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+See the full license in the `LICENSE.md` file.
 
