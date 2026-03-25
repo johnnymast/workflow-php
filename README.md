@@ -53,7 +53,7 @@ After installation, all classes are available under the namespace:
 JohnnyMast\LogicChain
 ```
 
---
+---
 
 ## Examples & Use Cases
 
@@ -70,7 +70,7 @@ The examples show:
 
 Exploring the examples is the quickest way to understand how LogicChain works in real applications.
 
---
+---
 
 ## Apache 2.0 License
 
