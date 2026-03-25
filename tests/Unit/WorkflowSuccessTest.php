@@ -1,8 +1,8 @@
 <?php
 
-use Johnny\Workflow\Workflow;
-use Johnny\Workflow\WorkflowContext;
-use Johnny\Workflow\WorkflowResult;
+use JohnnyMast\LogicChain\Workflow;
+use JohnnyMast\LogicChain\WorkflowContext;
+use JohnnyMast\LogicChain\WorkflowResult;
 
 it('runs a successful workflow', function () {
 

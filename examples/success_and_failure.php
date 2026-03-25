@@ -3,10 +3,10 @@ namespace Examples;
 
 include __DIR__ . "/../vendor/autoload.php";
 
-use Johnny\Workflow\Workflow;
-use Johnny\Workflow\WorkflowContext;
-use Johnny\Workflow\WorkflowResult;
-use Johnny\Workflow\WorkflowResultFactory;
+use JohnnyMast\LogicChain\Workflow;
+use JohnnyMast\LogicChain\WorkflowContext;
+use JohnnyMast\LogicChain\WorkflowResult;
+use JohnnyMast\LogicChain\WorkflowResultFactory;
 
 $result = (new Workflow())
     ->add(function (WorkflowContext $context) {

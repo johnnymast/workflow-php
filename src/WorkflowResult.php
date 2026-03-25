@@ -1,6 +1,6 @@
 <?php
 
-namespace Johnny\Workflow;
+namespace JohnnyMast\LogicChain;
 
 class WorkflowResult
 {

@@ -1,7 +1,7 @@
 <?php
 
-use Johnny\Workflow\Workflow;
-use Johnny\Workflow\WorkflowContext;
+use JohnnyMast\LogicChain\Workflow;
+use JohnnyMast\LogicChain\WorkflowContext;
 
 it('passes userData through on failure', function () {
 

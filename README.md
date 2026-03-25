@@ -1,4 +1,3 @@
-
 [![Run Pest Tests](https://github.com/johnnymast/workflow-php/actions/workflows/tests.yml/badge.svg)](https://github.com/johnnymast/workflow-php/actions/workflows/tests.yml)
 
 # LogicChain (Work in Progress)
@@ -47,4 +46,4 @@ LogicChain is licensed under the Apache License, Version 2.0 (Apache-2.0).
 You may use this project in commercial and private applications under the terms of the Apache 2.0 license.
 
 See the full license in the `LICENSE.md` file.
-
+Additional project notices can be found in the `NOTICE` file.

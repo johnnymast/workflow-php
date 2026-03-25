@@ -1,6 +1,6 @@
 <?php
 
-use Johnny\Workflow\Workflow;
+use JohnnyMast\LogicChain\Workflow;
 
 it('can add arrow functions', function () {
     $workflow = (new Workflow())->add(fn ($c) => $c);

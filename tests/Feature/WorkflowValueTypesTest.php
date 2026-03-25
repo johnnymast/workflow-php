@@ -1,8 +1,8 @@
 
 <?php
 
-use Johnny\Workflow\Workflow;
-use Johnny\Workflow\WorkflowContext;
+use JohnnyMast\LogicChain\Workflow;
+use JohnnyMast\LogicChain\WorkflowContext;
 
 it('supports any value type', function () {
 

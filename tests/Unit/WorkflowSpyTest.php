@@ -1,6 +1,6 @@
 <?php
 
-use Johnny\Workflow\Workflow;
+use JohnnyMast\LogicChain\Workflow;
 use Mockery;
 
 it('calls spies correctly on failure', function () {

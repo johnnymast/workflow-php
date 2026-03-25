@@ -4,8 +4,8 @@ namespace Examples;
 
 include __DIR__ . "/../vendor/autoload.php";
 
-use Johnny\Workflow\Workflow;
-use Johnny\Workflow\WorkflowContext;
+use JohnnyMast\LogicChain\Workflow;
+use JohnnyMast\LogicChain\WorkflowContext;
 
 $workflow = (new Workflow())
     ->add(function (WorkflowContext $context) {

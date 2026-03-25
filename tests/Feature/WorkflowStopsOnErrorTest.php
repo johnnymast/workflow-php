@@ -1,7 +1,7 @@
 <?php
 
-use Johnny\Workflow\Workflow;
-use Johnny\Workflow\WorkflowContext;
+use JohnnyMast\LogicChain\Workflow;
+use JohnnyMast\LogicChain\WorkflowContext;
 
 it('stops executing steps after an error', function () {
 

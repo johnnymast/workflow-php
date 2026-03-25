@@ -3,8 +3,8 @@
 
 require __DIR__ . "/../vendor/autoload.php";
 
-use Johnny\Workflow\Workflow;
-use Johnny\Workflow\WorkflowResult;
+use JohnnyMast\LogicChain\Workflow;
+use JohnnyMast\LogicChain\WorkflowResult;
 use Examples\Invokables\ValidateOrder;
 use Examples\Invokables\CreateOrder;
 use Examples\Invokables\StoreOrder;
