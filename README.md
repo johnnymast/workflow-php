@@ -11,7 +11,6 @@
 - [ ] Double check if there are open isuses.
 - [ ] Check links in docs
 
-
 ### After live 
 
 - [ ] Merge branch into master
