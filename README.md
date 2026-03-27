@@ -3,18 +3,6 @@
 
 # LogicChain
 
-### Before live
-
-- [ ] Add package to packagist
-- [ ] Check donation pages
-- [ ] Check if there is a correct tag
-- [ ] Double check if there are open isuses.
-- [ ] Check links in docs
-
-### After live 
-
-- [ ] Merge branch into master
-
 Workflow is built on a simple belief: complex logic shouldn’t feel complex.
 This library gives you a clean, expressive way to structure multi‑step processes without drowning in conditionals, flags, or scattered service calls. Every workflow becomes a clear, linear story — one step at a time — with predictable behavior and a result you can always trust.
 
