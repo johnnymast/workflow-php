@@ -41,7 +41,6 @@ That’s the entire flow — end to end.
 No scattered service calls, no deeply nested conditionals, no hidden state.  
 Just a clean sequence of steps that tells the story of what your application is doing.
 
-
 ---
 
 ## Installation 
