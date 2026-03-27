@@ -6,15 +6,15 @@
 - [x] Check examples
 - [x] Double check tests
 - [x] Double check documentation and code examples
-- [ ] Comment code where needed 
-- [ ] Comment examples and add output
+- [x] Comment code where needed 
+- [x] Comment examples and add output
 - [ ] Check donation pages
 - [x] Check badges
 
 ### Articles
 
 - [ ] Check documentation for twitter / linked in
-- [ ] Check check promotie afbeelding
+- [ ] Check promotion image
 
 
 ### Before live
