@@ -22,7 +22,7 @@
   "prefer-stable": true,
   "autoload": {
     "psr-4": {
-      "Johnny\\LogicChain\\": "src/",
+      "JohnnyMast\\LogicChain\\": "src/",
       "Examples\\": "examples/",
       "Tests\\": "tests/"
     }
